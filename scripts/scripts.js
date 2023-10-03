@@ -389,6 +389,37 @@ async function addPrevNextLinksToArticles() {
   heroLinkContainer.append(nextLink);
 }
 
+const scanAllTextNodes = (element) => {
+  const allChildNodes = element.childNodes;
+  allChildNodes.forEach((oNode) => {
+    if (oNode.nodeType !== Node.TEXT_NODE) {
+      scanAllTextNodes(oNode);
+      return;
+    }
+    if (oNode.nodeValue.trim() === '') {
+      return;
+    }
+    if (oNode.nodeValue !== '# # #') {
+      return;
+    }
+    const span = document.createElement('span');
+    span.classList.add('article-end-divider');
+    span.textContent = oNode.nodeValue;
+    element.replaceChild(span, oNode);
+  });
+};
+
+const centerArticleDivider = (main) => {
+  const template = getMetadata('template');
+  if (template !== 'Article') {
+    return;
+  }
+  const sectionDefaultArticles = main.querySelectorAll('main .section:not([class*=" "]) .default-content-wrapper');
+  sectionDefaultArticles.forEach((article) => {
+    scanAllTextNodes(article);
+  });
+};
+
 function annotateArticleSections() {
   const template = getMetadata('template');
   if (template !== 'Article') {
@@ -642,6 +673,7 @@ async function loadLazy(doc) {
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
+  centerArticleDivider(main);
 }
 
 async function completeFFetchIteration() {

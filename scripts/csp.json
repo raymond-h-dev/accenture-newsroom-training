@@ -8,7 +8,7 @@
       "'unsafe-eval'",
       "rum.hlx.page",
       "assets.adobedtm.com",
-      "cdn.cookielaw.org",
+      "https://*.cookielaw.org",
       "www.youtube.com",
       "dpm.demdex.net",
       "cdnjs.cloudflare.com"
@@ -17,7 +17,7 @@
       "'self'",
       "rum.hlx.page",
       "*.accenture.com",
-      "*.onetrust.com",
+      "https://*.onetrust.com",
       "assets.adobedtm.com",
       "cdn.cookielaw.org",
       "dpm.demdex.net",

@@ -361,7 +361,7 @@ export default {
     // find internal pdf links
     main.querySelectorAll('a').forEach((a) => {
       const href = a.getAttribute('href');
-      if (href && href.endsWith('.pdf') && href.includes('newsroom.accenture')) {
+      if (href && href.endsWith('.pdf') && (href.includes('newsroom.accenture') || href.startsWith('/'))) {
         const newUrl = new URL(url);
         const host = newUrl.searchParams.get('host');
         if (href.startsWith('/')) {

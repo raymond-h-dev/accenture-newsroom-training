@@ -197,7 +197,7 @@ export default {
     // Remove unnecessary parts of the content
     const main = document.body;
     const results = [];
-
+    let abstractNotFound = '';
     // Remove other stuff that shows up in the page
     const nav = main.querySelector('#block-header');
     if (nav) nav.remove();
@@ -275,6 +275,7 @@ export default {
           nextBrNode.after(br2);
         } else {
           console.log(`${new URL(url).pathname} - abstract not found`);
+          abstractNotFound = 'true';
         }
       } else {
         const secondaryMatchingParagraph = contentDetailsTextNodes.find(
@@ -291,9 +292,11 @@ export default {
             nextBrNode.after(br2);
           } else {
             console.log(`${new URL(url).pathname} - abstract not found`);
+            abstractNotFound = 'true';
           }
         } else {
           console.log(`${new URL(url).pathname} - abstract not found`);
+          abstractNotFound = 'true';
         }
       }
     }
@@ -349,12 +352,18 @@ export default {
       results.push({
         element: main,
         path: newPath,
+        report: {
+          'Missing abstract': abstractNotFound,
+        },
       });
     } else {
       // main page import - "element" is provided, i.e. a docx will be created
       results.push({
         element: main,
         path: new URL(url).pathname.replace('.htm', ''),
+        report: {
+          'Missing abstract': abstractNotFound,
+        },
       });
     }
 

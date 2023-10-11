@@ -314,6 +314,9 @@ export default {
     const tables = main.querySelectorAll('table');
     if (tables && tables.length > 0) {
       tables.forEach((table) => {
+        const videoRegex = /.*https:\/\/play.vidyard.com.*/;
+        const isVideo = videoRegex.test(table.outerHTML);
+        if (isVideo) return;
         const cells = [
           ['Table'],
           [table.outerHTML],

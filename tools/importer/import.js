@@ -350,19 +350,24 @@ export default {
     if (meta.PublishedDate && url.includes('/news/')) {
       const publishedYear = new Date(meta.PublishedDate).getFullYear().toString().trim();
       const newPath = decodeURIComponent(new URL(url).pathname).replace('.htm', '').replace('/news/', `/news/${publishedYear}/`);
+      const destinationUrl = WebImporter.FileUtils.sanitizePath(newPath);
       results.push({
         element: main,
         path: newPath,
         report: {
+          'Destination Url': destinationUrl,
           'Missing abstract': abstractNotFound,
         },
       });
     } else {
       // main page import - "element" is provided, i.e. a docx will be created
+      const newPath = decodeURIComponent(new URL(url).pathname).replace('.htm', '');
+      const destinationUrl = WebImporter.FileUtils.sanitizePath(newPath);
       results.push({
         element: main,
-        path: decodeURIComponent(new URL(url).pathname).replace('.htm', ''),
+        path: newPath,
         report: {
+          'Destination Url': destinationUrl,
           'Missing abstract': abstractNotFound,
         },
       });

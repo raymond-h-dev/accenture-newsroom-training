@@ -1,6 +1,6 @@
 {
   "project": "Accenture Newsroom",
-  "host": "main--accenture-newsroom--hlxsites.hlx.live",
+  "host": "main--training--raymond-h-dev.hlx.live",
   "plugins": [
     {
       "id": "publish",
